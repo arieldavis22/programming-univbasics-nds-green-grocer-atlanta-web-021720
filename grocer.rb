@@ -79,6 +79,8 @@ def apply_clearance(cart)
   #
   # REMEMBER: This method **should** update cart
   i = 0
+  results = []
+  binding.pry
   while i < cart.length do
     cart_clearance = cart[i][:clearance]
     cart_price = cart[i][:price]
