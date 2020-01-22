@@ -1,7 +1,19 @@
+require 'pp'
+require 'pry'
+
 def find_item_by_name_in_collection(name, collection)
   # Implement me first!
   #
   # Consult README for inputs and outputs
+  i = 0
+  while i < collection.length do
+
+    if name === collection[i][:item]
+      return collection[i]
+    end
+    i += 1
+    nil
+  end
 end
 
 def consolidate_cart(cart)
@@ -9,12 +21,57 @@ def consolidate_cart(cart)
   #
   # REMEMBER: This returns a new Array that represents the cart. Don't merely
   # change `cart` (i.e. mutate) it. It's easier to return a new thing.
+  results = []
+  i = 0
+  #binding.pry
+  while i < cart.length do
+    item_name = cart[i][:item]
+    sought_item = find_item_by_name_in_collection(item_name, results)
+    if sought_item
+      sought_item[:count] += 1
+    else
+      cart[i][:count] = 1
+      results << cart[i]
+    end
+    i += 1
+  end
+  results
+end
+
+def coupon_hash(c)
+  rounded_unit_price = (c[:cost] / c[:num])
+  {
+    :item => "#{c[:item]} W/COUPON",
+    :price => rounded_unit_price,
+    :count => c[:num]
+  }
+end
+
+def apply_coupon_to_cart(matching_item, coupon, cart)
+  matching_item[:count] -= coupon[:num]
+  item_with_coupon = coupon_hash(coupon)
+  item_with_coupon[:clearance] = matching_item[:clearance]
+  cart << item_with_coupon
 end
 
 def apply_coupons(cart, coupons)
   # Consult README for inputs and outputs
   #
   # REMEMBER: This method **should** update cart
+  i = 0
+while i < coupons.count do
+  coupon = coupons[i]
+  item_with_coupon = find_item_by_name_in_collection(coupon[:item], cart)
+  item_is_in_basket = !!item_with_coupon
+  count_is_big_enough_to_apply = item_is_in_basket && item_with_coupon[:count] >= coupon[:num]
+
+  if item_is_in_basket and count_is_big_enough_to_apply
+    apply_coupon_to_cart(item_with_coupon, coupon, cart)
+  end
+  i += 1
+end
+
+cart
 end
 
 def apply_clearance(cart)
