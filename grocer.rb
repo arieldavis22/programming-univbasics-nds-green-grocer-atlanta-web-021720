@@ -80,14 +80,13 @@ def apply_clearance(cart)
   # REMEMBER: This method **should** update cart
   i = 0
   results = []
-  binding.pry
+  #binding.pry
   while i < cart.length do
-    cart_clearance = cart[i][:clearance]
-    cart_price = cart[i][:price]
+    item = cart[i]
 
-    if cart_clearance
-      cart_price *= 0.8
-      cart_price.round(2)
+    if item[:clearance]
+      discount = (item[:price] * 0.8).round(2)
+      item[:prince] = discount
     end
     i += 1
   end
