@@ -114,6 +114,6 @@ def checkout(cart, coupons)
     total_price_of_item = item[:price] * item[:count]
     grand_total += total_price_of_item
     i += 1
-  end 
+  end
   grand_total
 end
