@@ -86,7 +86,7 @@ def apply_clearance(cart)
 
     if item[:clearance]
       discount = (item[:price] * 0.8).round(2)
-      item[:prince] = discount
+      item[:price] = discount
     end
     i += 1
   end
