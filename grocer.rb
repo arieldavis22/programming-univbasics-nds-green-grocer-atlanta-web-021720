@@ -115,5 +115,10 @@ def checkout(cart, coupons)
     grand_total += total_price_of_item
     i += 1
   end
+
+  if grand_total > 100
+    grand_total *= 0.9
+  end
+  
   grand_total
 end
