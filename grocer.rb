@@ -85,7 +85,7 @@ def apply_clearance(cart)
 
     if cart_clearance
       cart_price *= 0.8
-    ends
+    end
   end
   cart
 end
